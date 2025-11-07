@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flirty Flower Message</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f0f8ff;
+            color: #333;
+            overflow: hidden; /* Prevent scrolling during rain */
+        }
+        .message {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        button {
+            font-size: 16px;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .accept {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .reject {
+            background-color: #f44336;
+            color: white;
+        }
+        .prompt {
+            font-size: 16px;
+            margin-top: 20px;
+            color: #555;
+        }
+        .flower {
+            position: absolute;
+            font-size: 24px;
+            animation: fall 3s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes fall {
+            0% { top: -50px; opacity: 1; }
+            100% { top: 100vh; opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="message">
+        🌸 Hello, yaha koi hai? Ye phool yahan kabhi ka pada hua hai, kisi ne uthaya hi nahi! 😏 Kya tum uthaogi? 💐
+    </div>
+    <button class="accept" onclick="acceptFlower()">Flower Accepted 🌹</button>
+    <button class="reject" onclick="rejectFlower()">Not Accepted ❌</button>
+    <div id="prompt" class="prompt"></div>
+
+    <script>
+        let promptIndex = 0;
+        const prompts = [
+            "Think again... 😢",
+            "Are you sure?🌼",
+            "He is nice,😉",
+            "You know you want to... admit it! 😏",
+            "One click and it's yours 💕",
+            " Please Pick me up! 💔",
+            "Seriously, think about it... 🌹",
+            "You're missing out on the fun! Come on! 🎉",
+            "Last chance... or is it? 😜",
+            "Okay, but deep down, you know it's meant to be! 💖",
+            "Phool ko mana karna acha nahi lagta! 😅",
+            "Imagine how happy it'll be in your hands! 🌸",
+            "You're too kind to say no... right? 😇",
+            "Fine, but this phool won't give up! Repeat after me: Yes! 🙌"
+        ];
+
+        function acceptFlower() {
+            document.getElementById('prompt').innerHTML = "Finally!! accepted ;Thank you Madam ji 😊";
+            startFlowerRain();
+        }
+
+        function rejectFlower() {
+            document.getElementById('prompt').innerHTML = prompts[promptIndex];
+            promptIndex = (promptIndex + 1) % prompts.length;  // Loop back to start after 15
+        }
+
+        function startFlowerRain() {
+            const flowerEmojis = ['🌸', '🌹', '🌼', '💐', '🌺'];
+            for (let i = 0; i < 50; i++) {  // Create 50 falling flowers
+                setTimeout(() => {
+                    const flower = document.createElement('div');
+                    flower.className = 'flower';
+                    flower.textContent = flowerEmojis[Math.floor(Math.random() * flowerEmojis.length)];
+                    flower.style.left = Math.random() * 100 + 'vw';  // Random horizontal position
+                    flower.style.animationDuration = (Math.random() * 2 + 2) + 's';  // Random fall speed
+                    document.body.appendChild(flower);
+                    setTimeout(() => flower.remove(), 10000);  // Remove after 10 seconds
+                }, i * 100);  // Stagger creation
+            }
+        }
+    </script>
+</body>
+</html>
